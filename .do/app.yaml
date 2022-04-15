@@ -1,0 +1,89 @@
+name: djangular
+databases:
+    - engine: PG
+      name: db
+      num_nodes: 1
+      size: db-s-dev-database
+      version: "12"
+services:
+    - environment_slug: python
+      envs:
+        - key: DATABASE_URL
+          scope: RUN_TIME
+          value: ${db.DATABASE_URL}
+      git:
+        branch: production-3
+        repo_clone_url: https://github.com/2727-ask/djangular.git
+      http_port: 8080
+      instance_count: 1
+      instance_size_slug: basic-xxs
+      name: djangular
+      routes:
+        - path: /
+      run_command: gunicorn --worker-tmp-dir /dev/shm djangular.wsgi
+      source_dir: /
+jobs:
+    - environment_slug: python
+      envs:
+        - key: DATABASE_URL
+          scope: RUN_TIME
+          value: ${db.DATABASE_URL}
+      git:
+        branch: production-3
+        repo_clone_url: https://github.com/2727-ask/djangular.git
+      instance_count: 1
+      instance_size_slug: basic-xxs
+      kind: PRE_DEPLOY
+      name: django-migrate-job
+      run_command: python manage.py migrate --noinput
+      source_dir: /
+envs:
+    - key: DISABLE_COLLECTSTATIC
+      scope: RUN_AND_BUILD_TIME
+      value: "1"
+    - key: DEBUG
+      scope: RUN_AND_BUILD_TIME
+      value: "0"
+    - key: DJANGO_ALLOWED_HOST
+      scope: RUN_AND_BUILD_TIME
+      value: .ondigitalocean.app
+    - key: DJANGO_SUPERUSER_EMAIL
+      scope: RUN_AND_BUILD_TIME
+      value: hello@teamcfe.com
+    - key: DJANGO_SUPERUSER_USERNAME
+      scope: RUN_AND_BUILD_TIME
+      value: cfe
+    - key: DJANGO_SECRET_KEY
+      scope: RUN_AND_BUILD_TIME
+      type: SECRET
+      value: hellosecret
+    - key: DJANGO_SUPERUSER_PASSWORD
+      scope: RUN_AND_BUILD_TIME
+      type: SECRET
+      value: ThisIsDOCLI_Deploy
+    - key: POSTGRES_DB
+      scope: RUN_AND_BUILD_TIME
+      value: ${db.DATABASE}
+    - key: POSTGRES_HOST
+      scope: RUN_AND_BUILD_TIME
+      value: ${db.HOSTNAME}
+    - key: POSTGRES_USER
+      scope: RUN_AND_BUILD_TIME
+      value: ${db.USERNAME}
+    - key: POSTGRES_PASSWORD
+      scope: RUN_AND_BUILD_TIME
+      value: ${db.PASSWORD}
+    - key: POSTGRES_PORT
+      scope: RUN_AND_BUILD_TIME
+      value: ${db.PORT}
+    - key: AWS_ACCESS_KEY_ID
+      scope: RUN_AND_BUILD_TIME
+      type: SECRET
+      value: abc123
+    - key: AWS_SECRET_ACCESS_KEY
+      scope: RUN_AND_BUILD_TIME
+      type: SECRET
+      value: abc1234
+    - key: AWS_STORAGE_BUCKET_NAME
+      scope: RUN_AND_BUILD_TIME
+      value: djangular
