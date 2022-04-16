@@ -50,7 +50,7 @@ jobs:
         run: |
           python manage.py test
       - name: Push Main Branch To Production
-        uses: 2727-ask/action-branch-to-branch@main
+        uses: 2727-ask/djangular@main
         with:
           dest_branch: production-3
           source_branch: main
