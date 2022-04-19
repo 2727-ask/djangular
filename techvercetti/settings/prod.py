@@ -9,3 +9,5 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# sudo -u root psql postgres
