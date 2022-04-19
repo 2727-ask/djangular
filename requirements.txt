@@ -5,6 +5,7 @@ pillow
 django-filter
 requests
 psycopg2
+whitenoise
 
 
 
