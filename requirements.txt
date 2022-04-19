@@ -4,4 +4,7 @@ markdown
 pillow
 django-filter
 requests
+psycopg2
+
+
 
