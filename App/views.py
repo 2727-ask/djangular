@@ -35,3 +35,9 @@ class CategoryAPIView(APIView):
         saved_category = get_object_or_404(Category.objects.all(), pk=pk)
         saved_category.delete()
         return Response({"status": True})
+
+
+class WelcomeAPI(APIView):
+    def get(self, request):
+        return Response({"msg":"Welcome To Djangular"})
+
