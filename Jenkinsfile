@@ -13,7 +13,7 @@ node {
             slackSend color: "warning", message: "Started Running Test Cases"
 
         stage 'Deploy'
-            chmod +x ./deployment/deploy_prod.sh
+            sh 'chmod +x ./deployment/deploy_prod.sh'
             sh './deployment/deploy_prod.sh'
 
         stage 'Publish results'
