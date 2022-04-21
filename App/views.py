@@ -40,5 +40,5 @@ class CategoryAPIView(APIView):
 
 class WelcomeAPI(APIView):
     def get(self, request):
-        return Response({"msg":"Welcome To Djangular Jenkin Rocks  Hello World!! Hello Yash Yash Changed Something 123"})
+        return Response({"msg":"Welcome To Djangular Jenkin Rocks  Hello World!! Hello Yash Yash Changed Something 123 564"})
 
