@@ -127,4 +127,4 @@ CORS_ALLOW_ALL_ORIGINS = True
 import os
 baseUrl = os.environ.get("baseUrl")
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/baseUrl/static/"
+STATIC_ROOT = f"/var/www/{baseUrl}/static/"
