@@ -125,6 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 CORS_ALLOW_ALL_ORIGINS = True
 import os
-
+baseUrl = os.environ.get("baseUrl")
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/css/static/"
+STATIC_ROOT = "/var/www/baseUrl/static/"
