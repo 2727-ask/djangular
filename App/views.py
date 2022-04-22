@@ -7,6 +7,7 @@ from .serializers import CategorySerializer
 # Create your views here.
 
 class CategoryAPIView(APIView):
+    serializer_class = CategorySerializer
     def get(self,request,pk=None):
         if(pk):
             query = Category.objects.filter(id=pk)
@@ -17,7 +18,7 @@ class CategoryAPIView(APIView):
             serializer = CategorySerializer(query,many=True)
             return Response({"data":serializer.data})
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         query = request.data.get('category')
         serializer = CategorySerializer(data=query)
         if serializer.is_valid(raise_exception=True):

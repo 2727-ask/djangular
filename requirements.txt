@@ -4,6 +4,5 @@ markdown
 pillow
 django-filter
 requests
-
-
+django-cors-headers
 
