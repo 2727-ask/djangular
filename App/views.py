@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Category
@@ -19,11 +20,11 @@ class CategoryAPIView(APIView):
             return Response({"data":serializer.data})
 
     def post(self, request, *args, **kwargs):
-        query = request.data.get('category')
+        query = request.data
         serializer = CategorySerializer(data=query)
         if serializer.is_valid(raise_exception=True):
             category_saved = serializer.save()
-        return Response({"status":True})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def put(self,request,pk):
         saved_category = get_object_or_404(Category.objects.all(), pk=pk)
