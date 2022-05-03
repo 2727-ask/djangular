@@ -15,6 +15,5 @@ class CategorySerializer(ModelSerializer):
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
-        instance.parent = validated_data.get('body', instance.parent)
         instance.save()
         return instance

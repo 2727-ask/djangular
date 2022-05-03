@@ -28,11 +28,11 @@ class CategoryAPIView(APIView):
 
     def put(self,request,pk):
         saved_category = get_object_or_404(Category.objects.all(), pk=pk)
-        data = request.data.get('category')
+        data = request.data
         serializer = CategorySerializer(instance=saved_category, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             category_saved = serializer.save()
-        return Response({"status": True})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def delete(self, request, pk):
         saved_category = get_object_or_404(Category.objects.all(), pk=pk)
