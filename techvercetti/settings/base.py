@@ -122,9 +122,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+JWT_AUTH={
+    'JWT_ALLOW_REFRESH': True,
+}
+
+
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 CORS_ALLOW_ALL_ORIGINS = True
 import os
 STATIC_URL = '/static/'
 STATIC_ROOT = "var/www/static"
+
+
+
+
