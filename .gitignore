@@ -8,7 +8,7 @@ db.sqlite3
 media
 .env123
 env123
-.DS_Store
+*.DS_Store
 
 # Backup files #
 *.bak
