@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -27,6 +28,7 @@ class BlogPostAPIView(APIView,PageNumberPagination):
 
     def post(self, request, *args, **kwargs):
         query = request.data
+        query["date_published"] = datetime.now()
         serializer = BlogPostSerializer(data=query)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
