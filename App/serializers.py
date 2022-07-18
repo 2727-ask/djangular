@@ -32,6 +32,7 @@ class BlogPostSerializer(ModelSerializer):
         instance.save()
         return instance  
 
+
 class SignUpUserSerializer(ModelSerializer):
     class Meta:
         model = User
