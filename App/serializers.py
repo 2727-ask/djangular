@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import Category,BlogPost
+from .models import Category,BlogPost,User
 
 
 class CategorySerializer(ModelSerializer):
@@ -30,4 +30,17 @@ class BlogPostSerializer(ModelSerializer):
         instance.blog_desc = validated_data.get('blog_desc', instance.blog_desc)
         instance.content = validated_data.get('content', instance.content)
         instance.save()
-        return instance        
+        return instance  
+
+class SignUpUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username","password"]
+
+    def create(self,  validated_data):
+        user = User(
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user   
