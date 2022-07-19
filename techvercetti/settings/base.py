@@ -138,6 +138,7 @@ USE_TZ = True
 JWT_AUTH={
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=5),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
 

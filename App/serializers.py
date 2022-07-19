@@ -1,6 +1,8 @@
+from dataclasses import field
+from pyexpat import model
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import Category,BlogPost,User
+from .models import Category,BlogPost,User, Profile
 
 
 class CategorySerializer(ModelSerializer):
@@ -45,3 +47,9 @@ class SignUpUserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user   
+
+
+class ProfileSerializer(ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = "__all__"       
