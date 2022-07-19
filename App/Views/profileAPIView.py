@@ -28,15 +28,15 @@ class ProfileAPIView(APIView):
         query = request.GET.get('q', None)
         profile = Profile.objects.filter(user=query)
         if(profile):
-            serializer = ProfileSerializer(profile, many=True)   
+            serializer = ProfileSerializer(profile, many=True)
             return Response({"data": serializer.data})
-        return Response({"msg":"Profile Not Found"},exception=True,status=400)
+        return Response({"msg": "Profile Not Found"}, exception=True, status=400)
 
     def post(self, request):
         query = request.data
         profile = Profile.objects.filter(user=request.user)
         if(profile):
-            return Response({"msg":"Profile is Already Created"},exception=True,status=400)
+            return Response({"msg": "Profile is Already Created"}, exception=True, status=400)
         serializer = ProfileSerializer(data=query)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -48,12 +48,12 @@ class ProfileAPIView(APIView):
         print(profile)
         print(query)
         print(request.user)
-        profile.name = query.get('name',profile.name)
-        profile.bio = query.get('bio',profile.bio)
-        profile.github = query.get('github',profile.github)
-        profile.social = query.get('social',profile.social)
-        profile.location = query.get('location',profile.location)
+        profile.name = query.get('name', profile.name)
+        profile.bio = query.get('bio', profile.bio)
+        profile.github = query.get('github', profile.github)
+        profile.social = query.get('social', profile.social)
+        profile.location = query.get('location', profile.location)
+        profile.save()
         serializer = ProfileSerializer(profile)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
         return Response(serializer.data)
+
