@@ -25,8 +25,12 @@ class ProfileAPIView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
-        print(request.data)
-        return Response({"data": "Hello"})
+        query = request.GET.get('q', None)
+        profile = Profile.objects.filter(user=query)
+        if(profile):
+            serializer = ProfileSerializer(profile, many=True)   
+            return Response({"data": serializer.data})
+        return Response({"msg":"Profile Not Found"},exception=True,status=400)
 
     def post(self, request):
         query = request.data
