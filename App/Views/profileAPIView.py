@@ -30,7 +30,12 @@ class ProfileAPIView(APIView):
 
     def post(self, request):
         query = request.data
+        profile = Profile.objects.filter(user=request.user)
+        if(profile):
+            return Response({"msg":"Profile is Already Created"},exception=True,status=400)
         serializer = ProfileSerializer(data=query)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
         return Response({"data": serializer.data})
 
     def patch(self, request):
@@ -44,7 +49,7 @@ class ProfileAPIView(APIView):
         profile.github = query.get('github',profile.github)
         profile.social = query.get('social',profile.social)
         profile.location = query.get('location',profile.location)
-        profile.save()
-
         serializer = ProfileSerializer(profile)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
         return Response(serializer.data)
