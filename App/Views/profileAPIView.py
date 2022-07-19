@@ -45,9 +45,6 @@ class ProfileAPIView(APIView):
     def patch(self, request):
         query = request.data
         profile = Profile.objects.get(user=request.user)
-        print(profile)
-        print(query)
-        print(request.user)
         profile.name = query.get('name', profile.name)
         profile.bio = query.get('bio', profile.bio)
         profile.github = query.get('github', profile.github)

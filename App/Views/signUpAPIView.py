@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+
+from App.models import Profile
 from ..serializers import SignUpUserSerializer
 
 
@@ -30,6 +32,8 @@ class SignUpAPIView(APIView):
                 serializer = SignUpUserSerializer(data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()
+                    profile = Profile(user=User.objects.get(username=request.data.get("username")))
+                    profile.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED) 
             return Response({"msg":"Enter Valid Email Address"},exception=True,status=401)     
 
