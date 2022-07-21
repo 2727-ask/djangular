@@ -142,15 +142,15 @@ JWT_AUTH={
 }
 
 
-
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 CORS_ALLOW_ALL_ORIGINS = True
 import os
 STATIC_URL = '/static/'
 STATIC_ROOT = "var/www/static"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 

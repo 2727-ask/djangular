@@ -16,6 +16,7 @@ class Category(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_verified = models.BooleanField(default=False, null=True)
     profie_pic = models.ImageField(null=True, blank=True)
     name = models.CharField(max_length=60, null=True,blank=True)
     bio = models.TextField(null=True, blank=True)
@@ -29,7 +30,7 @@ class Profile(models.Model):
 
 class BlogPost(models.Model):
     id = models.AutoField(primary_key=True)
-    blog_title = models.CharField(max_length=200)
+    blog_title = models.CharField(max_length=200, blank=True, default="Untitled")
     blog_desc = models.TextField()
     content = models.TextField()
     date_published = models.DateTimeField(null=True)
