@@ -48,6 +48,7 @@ class ProfileAPIView(APIView):
         query = request.data
         profile = Profile.objects.get(user=request.user)
         profile.name = query.get('name', profile.name)
+        profile.profile_pic = query.get('profile_pic',profile.profile_pic)
         profile.bio = query.get('bio', profile.bio)
         profile.github = query.get('github', profile.github)
         profile.social = query.get('social', profile.social)

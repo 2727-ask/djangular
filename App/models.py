@@ -17,7 +17,7 @@ class Category(models.Model):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_verified = models.BooleanField(default=False, null=True)
-    profie_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True)
     name = models.CharField(max_length=60, null=True,blank=True)
     bio = models.TextField(null=True, blank=True)
     github = models.TextField(null=True, blank=True)
