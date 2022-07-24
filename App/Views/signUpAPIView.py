@@ -35,7 +35,7 @@ class SignUpAPIView(APIView):
                     profile = Profile(user=User.objects.get(username=request.data.get("username")))
                     profile.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED) 
-            return Response({"msg":"Enter Valid Email Address"},exception=True,status=401)     
+            return Response({"msg":"Enter Valid Email Address"},exception=True,status=400)     
 
 
 
