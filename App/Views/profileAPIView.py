@@ -1,3 +1,4 @@
+from App.helpers.sendEmail import send_my_email
 from ..models import Profile
 from datetime import datetime
 from django.shortcuts import get_object_or_404
@@ -27,6 +28,7 @@ class ProfileAPIView(APIView):
     def get(self, request):
         query = request.GET.get('q', None)
         profile = Profile.objects.filter(user=query)
+        send_my_email()
         if(profile):
             serializer = ProfileSerializer(profile, many=True)
             return Response({"data": serializer.data})

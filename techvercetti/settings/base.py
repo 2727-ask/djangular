@@ -109,6 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+'''
+Email Backend Setup
+'''
+EMAIL_BACKEND = 'django_ses.SESBackend'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -151,6 +157,12 @@ STATIC_ROOT = "var/www/static"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+
+
+
 
 
 
