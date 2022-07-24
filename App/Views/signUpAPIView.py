@@ -23,20 +23,20 @@ class SignUpAPIView(APIView):
         return Response({"data": "Hello"})
 
     def post(self, request):
-        print(request.data)
-        user = User.objects.filter(username=request.data.get("username"))
-        if(user):
-            return Response({"msg":"This Email is Already Registered"},exception=True,status=400)
+        if(request.data):
+            user = User.objects.filter(username=request.data.get("username"))
+            if(user):
+                return Response({"msg":"This Email is Already Registered"},exception=True,status=400)
+            else:
+                if(solve(request.data.get("username"))):
+                    serializer = SignUpUserSerializer(data=request.data)
+                    if serializer.is_valid(raise_exception=True):
+                        serializer.save()
+                        profile = Profile(user=User.objects.get(username=request.data.get("username")))
+                        profile.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED) 
+                return Response({"msg":"Enter Valid Email Address"},exception=True,status=400)     
         else:
-            if(solve(request.data.get("username"))):
-                serializer = SignUpUserSerializer(data=request.data)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
-                    profile = Profile(user=User.objects.get(username=request.data.get("username")))
-                    profile.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED) 
-            return Response({"msg":"Enter Valid Email Address"},exception=True,status=400)     
-
-
+            return Response({"msg":"No Information Provided"},exception=True,status=400)   
 
 
