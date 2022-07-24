@@ -23,7 +23,7 @@ class SignUpAPIView(APIView):
         return Response({"data": "Hello"})
 
     def post(self, request):
-        if(request.data):
+        if(request.data.get("username") and request.data.get("password")):
             user = User.objects.filter(username=request.data.get("username"))
             if(user):
                 return Response({"msg":"This Email is Already Registered"},exception=True,status=400)
