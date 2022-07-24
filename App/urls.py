@@ -7,7 +7,7 @@ urlpatterns = [
     path('api/blog_post/',blogpostAPIView.BlogPostAPIView.as_view()),
     path('api/signup/',signUpAPIView.SignUpAPIView.as_view()),
     path('api/profile/',profileAPIView.ProfileAPIView.as_view()),
-    path('auth-jwt',obtain_jwt_token),
+    path('api/auth-jwt',obtain_jwt_token),
     path('refresh-jwt', refresh_jwt_token),
     path('verify-jwt',verify_jwt_token)
 ]
