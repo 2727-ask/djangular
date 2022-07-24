@@ -1,4 +1,5 @@
 from datetime import datetime
+from pickle import FALSE
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -17,13 +18,23 @@ def solve(s):
       return True
    return False
 
+
+def sanitizeRequest(request):
+    if(request.data.get("username")==None or request.data.get("password")==None):
+        return {"msg":"Incomplete Data Provided", "status":False}
+    if(len(request.data.get("password"))<=5):
+        return {"msg":"Password is too short", "status":False}
+    return {"msg":"The request is correct", "status":True}     
+
+
+
 class SignUpAPIView(APIView):
     def get(self, request):
         print(request.data)
         return Response({"data": "Hello"})
 
     def post(self, request):
-        if(request.data.get("username") and request.data.get("password")):
+        if(sanitizeRequest(request).get("status") == True):
             user = User.objects.filter(username=request.data.get("username"))
             if(user):
                 return Response({"msg":"This Email is Already Registered"},exception=True,status=400)
@@ -37,6 +48,6 @@ class SignUpAPIView(APIView):
                     return Response(serializer.data, status=status.HTTP_201_CREATED) 
                 return Response({"msg":"Enter Valid Email Address"},exception=True,status=400)     
         else:
-            return Response({"msg":"No Information Provided"},exception=True,status=400)   
+            return Response({"msg":sanitizeRequest(request).get("msg")},exception=True,status=400)   
 
 
