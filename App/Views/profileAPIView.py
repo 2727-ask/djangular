@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from ..serializers import ProfileSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import parsers
 
 
 import re
@@ -23,6 +24,7 @@ def solve(s):
 class ProfileAPIView(APIView):
     authentication_classes = [JSONWebTokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     def get(self, request):
         query = request.GET.get('q', None)
