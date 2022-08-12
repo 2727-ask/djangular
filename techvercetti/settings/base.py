@@ -126,6 +126,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_BACKEND = 'django_ses.SESBackend'
+
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': (
 #         'rest_framework.permissions.IsAuthenticated',
@@ -169,6 +171,13 @@ AWS_DEFAULT_ACL=None
 AWS_S3_VERIFY=True
 DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3Boto3Storage' 
 AWS_QUERYSTRING_AUTH=False
+AWS_SES_REGION_NAME = 'ap-south-1'
+
+
+SITE_DOMAIN = env('SITE_DOMAIN')
+
+
+
 
 
 
