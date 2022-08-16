@@ -1,3 +1,4 @@
+from unicodedata import name
 import jwt
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,7 +20,7 @@ class VerifyEmailAPIView(APIView):
                 "email"), "password": user_details.get("password")})
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                profile = Profile(user=User.objects.get(username=user_details.get("email")), is_verified=True)
+                profile = Profile(user=User.objects.get(username=user_details.get("email")), is_verified=True, name=user_details.get("username"))
                 profile.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:

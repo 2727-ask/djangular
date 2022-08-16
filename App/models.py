@@ -11,7 +11,13 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+class PasswordResetOTP(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    otp = models.IntegerField(max_length=7)
 
+    def __str__(self):
+        return self.user.username
+    
 
 
 class Profile(models.Model):
